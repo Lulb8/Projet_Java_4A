@@ -56,8 +56,12 @@ public class MarsRoverTest {
     @ParameterizedTest
     @CsvSource({
         "'f', 0, 1, NORTH",
+        "'b', 0, -1, NORTH",
         "'l', 0, 0, WEST",
-        "'fflb', 1, 2, WEST"
+        "'r', 0, 0, EAST",
+        "'fflb', 1, 2, WEST",
+        "'fblfl', -1, 0, SOUTH",
+        "'bbrfrblff', 3, -1, EAST"
     })
     void move_from_center(String command, int expectedX, int expectedY, Direction expectedDirection) {
         MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH);
