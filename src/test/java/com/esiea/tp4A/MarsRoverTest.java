@@ -66,4 +66,53 @@ public class MarsRoverTest {
         Assertions.assertThat(newPosition).isEqualTo(Position.of(expectedX, expectedY, expectedDirection));
 
     }
+
+
+    @ParameterizedTest
+    @CsvSource({
+        "'f', 0, -49, NORTH",
+    })
+    void move_from_border_north(String command, int expectedX, int expectedY, Direction expectedDirection) {
+        MarsRover marsRover = new MarsRoverImpl(0, 50, Direction.NORTH);
+        Position newPosition = marsRover.move(command);
+
+        Assertions.assertThat(newPosition).isEqualTo(Position.of(expectedX, expectedY, expectedDirection));
+
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "'f', 0, 50, SOUTH",
+    })
+    void move_from_border_South(String command, int expectedX, int expectedY, Direction expectedDirection) {
+        MarsRover marsRover = new MarsRoverImpl(0, -49, Direction.SOUTH);
+        Position newPosition = marsRover.move(command);
+
+        Assertions.assertThat(newPosition).isEqualTo(Position.of(expectedX, expectedY, expectedDirection));
+
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "'b', -49, 0, EAST",
+    })
+    void move_from_border_East(String command, int expectedX, int expectedY, Direction expectedDirection) {
+        MarsRover marsRover = new MarsRoverImpl(50, 0, Direction.EAST);
+        Position newPosition = marsRover.move(command);
+
+        Assertions.assertThat(newPosition).isEqualTo(Position.of(expectedX, expectedY, expectedDirection));
+
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "'b', 50, 0, WEST",
+    })
+    void move_from_border_West(String command, int expectedX, int expectedY, Direction expectedDirection) {
+        MarsRover marsRover = new MarsRoverImpl(-49, 0, Direction.WEST);
+        Position newPosition = marsRover.move(command);
+
+        Assertions.assertThat(newPosition).isEqualTo(Position.of(expectedX, expectedY, expectedDirection));
+
+    }
 }
