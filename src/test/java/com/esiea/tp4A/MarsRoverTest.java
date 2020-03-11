@@ -57,7 +57,13 @@ public class MarsRoverTest {
         "'rr', 0, 0, SOUTH",
         "'lll', 0, 0, EAST",
         "'fblfl', -1, 0, SOUTH",
-        "'bbrfrblff', 3, -1, EAST"
+        "'bbrfrblff', 3, -1, EAST",
+        "'aff', 0, 0, NORTH",
+        "'f f', 0, 0, NORTH",
+        "'f,f', 0, 0, NORTH",
+        "'ff;', 0, 0, NORTH",
+        "'fflb', 1, 2, WEST",
+        "'lbblffr',2, -2, WEST"
     })
     void move_from_center(String command, int expectedX, int expectedY, Direction expectedDirection) {
         MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH);
@@ -105,6 +111,16 @@ public class MarsRoverTest {
     })
     void move_from_border_West(String command, int expectedX, int expectedY, Direction initDirection, Direction expectedDirection) {
         MarsRover marsRover = new MarsRoverImpl(-49, 0, initDirection);
+        Position newPosition = marsRover.move(command);
+        Assertions.assertThat(newPosition).isEqualTo(Position.of(expectedX, expectedY, expectedDirection));
+    }
+
+    @ParameterizedTest
+    @CsvSource({
+        "'ff', 3, -3, WEST, WEST"
+    })
+    void move_from_another_origin(String command, int expectedX, int expectedY, Direction initDirection, Direction expectedDirection) {
+        MarsRover marsRover = new MarsRoverImpl(5, -3, initDirection);
         Position newPosition = marsRover.move(command);
         Assertions.assertThat(newPosition).isEqualTo(Position.of(expectedX, expectedY, expectedDirection));
     }
