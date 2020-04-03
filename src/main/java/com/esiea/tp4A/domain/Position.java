@@ -4,7 +4,9 @@ import java.util.Objects;
 
 public interface Position {
     int getX();
+
     int getY();
+
     Direction getDirection();
 
     static Position of(int x, int y, Direction direction) {
@@ -25,21 +27,17 @@ public interface Position {
 
         @Override
         public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
+            if (this == o)
+                return true;
+            if (o == null || getClass() != o.getClass())
+                return false;
             FixedPosition that = (FixedPosition) o;
-            return x == that.x &&
-                y == that.y &&
-                direction == that.direction;
+            return x == that.x && y == that.y && direction == that.direction;
         }
 
         @Override
         public String toString() {
-            return "FixedPosition{" +
-                "x=" + x +
-                ", y=" + y +
-                ", direction=" + direction +
-                '}';
+            return "FixedPosition{" + "x=" + x + ", y=" + y + ", direction=" + direction + '}';
         }
 
         @Override
