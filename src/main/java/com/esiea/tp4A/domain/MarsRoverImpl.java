@@ -1,7 +1,9 @@
 package com.esiea.tp4A.domain;
 
 public class MarsRoverImpl implements MarsRover {
-    Position position;
+    private Position position;
+    PlanetMapImpl map = new PlanetMapImpl();
+    boolean knownCommand = true;
 
     public MarsRoverImpl(int x, int y, Direction direction) {
         position = Position.of(x, y, direction);
@@ -9,91 +11,44 @@ public class MarsRoverImpl implements MarsRover {
 
     @Override
     public Position move(String command) {
-        int x = position.getX(), originalX = position.getX(), y = position.getY(), originalY = position.getY();
-        Direction direction = position.getDirection(), originalDirection = position.getDirection();
-        if (command.isEmpty())
-            return position;
-        for (int count = 0; count < command.length(); count++) {
+        int originalX = position.getX(), originalY = position.getY(); Direction originalDirection = position.getDirection();
+        if (command.isEmpty()) return position;
+        for (int count = 0; knownCommand && count < command.length(); count++) {
             char singleCommand = command.charAt(count);
-            switch (singleCommand) {
-                case 'f':
-                    Object[] newPositionF = move_rover_forward(x, y, direction);
-                    x = (int) newPositionF[0];
-                    y = (int) newPositionF[1];
-                    position = Position.of(x, y, direction);
-                    break;
-                case 'b':
-                    Object[] newPositionB = move_rover_backward(x, y, direction);
-                    x = (int) newPositionB[0];
-                    y = (int) newPositionB[1];
-                    position = Position.of(x, y, direction);
-                    break;
-                case 'l':
-                    direction = move_rover_left(direction);
-                    position = Position.of(x, y, direction);
-                    break;
-                case 'r':
-                    direction = move_rover_right(direction);
-                    position = Position.of(x, y, direction);
-                    break;
-                default:
-                    return position = Position.of(originalX, originalY, originalDirection);
-            }
+            int x = position.getX(), y = position.getY(); Direction direction = position.getDirection();
+            execute_command(x, y, direction, originalX, originalY, originalDirection, singleCommand);
+        } return position;
+    }
+
+    public void execute_command(int x, int y, Direction direction, int originalX, int originalY, Direction originalDirection, char singleCommand){
+        switch (singleCommand) {
+            case 'f': move_rover_forward(x, y, direction); break;
+            case 'b': move_rover_backward(x, y, direction); break;
+            case 'l': give_new_position(x, y, direction = direction.rotateLeft()); break;
+            case 'r': give_new_position(x, y, direction = direction.rotateRight()); break;
+            default: give_new_position(originalX, originalY, originalDirection); knownCommand = false; break;
         }
-        return position;
     }
 
-    public Object[] move_rover_forward(int x, int y, Direction direction) {
+    public void move_rover_forward(int x, int y, Direction direction) {
         switch (direction) {
-            case NORTH: y = north_east_border(y); break;
-            case EAST: x = north_east_border(x); break;
-            case SOUTH: y = south_west_border(y); break;
-            case WEST: x = south_west_border(x); break;
-        } return new Object[]{x, y};
+            case NORTH: y = map.north_east_border(y); break;
+            case EAST: x = map.north_east_border(x); break;
+            case SOUTH: y = map.south_west_border(y); break;
+            case WEST: x = map.south_west_border(x); break;
+        } give_new_position(x, y, direction);
     }
 
-    public Object[] move_rover_backward(int x, int y, Direction direction) {
+    public void move_rover_backward(int x, int y, Direction direction) {
         switch (direction) {
-            case NORTH: y = south_west_border(y); break;
-            case EAST: x = south_west_border(x); break;
-            case SOUTH: y = north_east_border(y); break;
-            case WEST: x = north_east_border(x); break;
-        } return new Object[]{x, y};
+            case NORTH: y = map.south_west_border(y); break;
+            case EAST: x = map.south_west_border(x); break;
+            case SOUTH: y = map.north_east_border(y); break;
+            case WEST: x = map.north_east_border(x); break;
+        } give_new_position(x, y, direction);
     }
 
-    public Direction move_rover_right(Direction direction) {
-        Direction newDirection = direction;
-        switch (direction) {
-            case NORTH: newDirection = Direction.EAST; break;
-            case WEST: newDirection = Direction.NORTH; break;
-            case SOUTH: newDirection = Direction.WEST; break;
-            case EAST: newDirection = Direction.SOUTH; break;
-        } return newDirection;
-    }
-
-    public Direction move_rover_left(Direction direction) {
-        Direction newDirection = direction;
-        switch (direction) {
-            case NORTH: newDirection = Direction.WEST; break;
-            case WEST: newDirection = Direction.SOUTH; break;
-            case SOUTH: newDirection = Direction.EAST; break;
-            case EAST: newDirection = Direction.NORTH; break;
-        } return newDirection;
-    }
-
-    public int north_east_border(int p) {
-        if (p < 50)
-            p++;
-        else if (p == 50)
-            p = -49;
-        return p;
-    }
-
-    public int south_west_border(int p) {
-        if (p > -49)
-            p--;
-        else if (p == -49)
-            p = 50;
-        return p;
+    public void give_new_position(int x, int y, Direction direction){
+        position = Position.of(x, y, direction);
     }
 }

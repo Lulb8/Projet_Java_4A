@@ -14,10 +14,10 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
-public class obstacletest {
+public class ObstacleTest {
 
     @Test
-    void detectobstacles() {
+    void detect_obstacles() {
         MarsRover marsrover = new MarsRoverImpl(0, 0, Direction.NORTH);
         Position pos = marsrover.move("f,f,l,b");
         Position pos1 = Position.of(0, 1, Direction.NORTH);
