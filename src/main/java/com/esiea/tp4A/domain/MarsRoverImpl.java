@@ -115,12 +115,6 @@ public class MarsRoverImpl implements MarsRover {
         position = Position.of(x, y, direction);
     }
 
-    /*
-     * use map to get position of obstacles goal : take value in obtacles list with
-     * a for comparered position of marsrover if command = f or b get previous
-     * position
-     */
-
     public void detect_obstacles(char command, int initX, int initY, Direction initDirection) {
         int originalX = position.getX(), originalY = position.getY();
         Direction originalDirection = position.getDirection();
