@@ -1,5 +1,6 @@
 package com.esiea.tp4A.domain;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class PlanetMapImpl implements PlanetMap {
@@ -28,8 +29,14 @@ public class PlanetMapImpl implements PlanetMap {
         return p;
     }
 
-    @Override
-    public Set<Position> obstaclePositions() {
-        return null;
+    public static Set<Position> obstaclePositions() {
+        Position pos1 = Position.of(0, 1, Direction.NORTH);
+        Position pos2 = Position.of(2, 4, Direction.NORTH);
+        Position pos3 = Position.of(30, 16, Direction.NORTH);
+        Set<Position> obstacles = new HashSet<Position>();
+        obstacles.add(pos1);
+        obstacles.add(pos2);
+        obstacles.add(pos3);
+        return obstacles;
     }
 }

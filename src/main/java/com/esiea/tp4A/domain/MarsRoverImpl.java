@@ -1,7 +1,5 @@
 package com.esiea.tp4A.domain;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
-
 public class MarsRoverImpl implements MarsRover {
     private Position position;
     PlanetMapImpl map = new PlanetMapImpl();
@@ -26,6 +24,18 @@ public class MarsRoverImpl implements MarsRover {
         return position;
     }
 
+    public Position previous_position(String command) {
+        int originalX = position.getX(), originalY = position.getY();
+        Direction originalDirection = position.getDirection();
+        if (command.isEmpty())
+            return position;
+        for (int count = 0; knownCommand && count < command.length(); count++) {
+            char singleCommand = command.charAt(count);
+            no_execute_command(originalX, originalY, originalDirection, singleCommand);
+        }
+        return position;
+    }
+
     public void execute_command(int x, int y, Direction direction, int originalX, int originalY,
             Direction originalDirection, char singleCommand) {
         switch (singleCommand) {
@@ -44,6 +54,23 @@ public class MarsRoverImpl implements MarsRover {
             default:
                 give_new_position(originalX, originalY, originalDirection);
                 knownCommand = false;
+                break;
+        }
+    }
+
+    public void no_execute_command(int originalX, int originalY, Direction originalDirection, char singleCommand) {
+        switch (singleCommand) {
+            case 'f':
+                move_rover_forward(originalX, originalY, originalDirection);
+                break;
+            case 'b':
+                move_rover_backward(originalX, originalY, originalDirection);
+                break;
+            case 'l':
+                give_new_position(originalX, originalY, originalDirection);
+                break;
+            case 'r':
+                give_new_position(originalX, originalY, originalDirection);
                 break;
         }
     }
@@ -89,18 +116,35 @@ public class MarsRoverImpl implements MarsRover {
     }
 
     /*
-     * use map pour récupérer la position des obstacles puis ne pas forcer les
-     * obstacles avec la position du marsrover objectif : parcourir la liste des
-     * obstacles avec une boucle for puis la comparer à la position du marsrover si
-     * position marsrover == position obstacle alors annuler le deplacement en
-     * forward
+     * use map to get position of obstacles goal : take value in obtacles list with
+     * a for comparered position of marsrover if command = f or b get previous
+     * position
      */
 
-    public void detect_obstacles(String command){
-        Position newPosition = MarsRover.move(command);
-        for (Position positionObstacles : PlanetMap.obstaclePositions()){
-            if(positionObstacles.getY() ==  mo)
-        }
+    public void detect_obstacles(char command, int initX, int initY, Direction initDirection) {
+        int originalX = position.getX(), originalY = position.getY();
+        Direction originalDirection = position.getDirection();
+        String stringcommand = String.valueOf(command);
+        Position newPosition = move(stringcommand);
+
+        for (Position positionObstacles : PlanetMap.obstaclePositions())
+            switch (command) {
+                case 'f':
+                    if (positionObstacles.getY() == newPosition.getY()
+                            && positionObstacles.getX() == newPosition.getX())
+                        newPosition = previous_position("f");
+                    else
+                        newPosition = move(stringcommand);
+                    break;
+                case 'b':
+                    if (positionObstacles.getY() == newPosition.getY()
+                            && positionObstacles.getX() == newPosition.getX())
+                        newPosition = previous_position("b");
+                    else
+                        newPosition = move(stringcommand);
+                    break;
+            }
+        no_execute_command(originalX, originalY, originalDirection, command);
     }
 
 }
