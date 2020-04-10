@@ -1,8 +1,6 @@
 package com.esiea.tp4A;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import com.esiea.tp4A.domain.Direction;
 import com.esiea.tp4A.domain.MarsRover;
@@ -11,8 +9,6 @@ import com.esiea.tp4A.domain.PlanetMap;
 import com.esiea.tp4A.domain.Position;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.params.ParameterizedTest;
-import org.junit.jupiter.params.provider.CsvSource;
 
 public class ObstacleTest {
 
