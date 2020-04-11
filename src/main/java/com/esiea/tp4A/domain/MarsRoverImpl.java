@@ -149,23 +149,23 @@ public class MarsRoverImpl implements MarsRover {
                     switch (direction) {
                         case NORTH:
                             if (marsroverposition.getY() + laserlength == positionObstacles.getY()
-                                    && marsroverposition.getX() + laserlength == positionObstacles.getX())
-                                PlanetMap.obstaclePositions().remove(positionObstacles);
+                                    && marsroverposition.getX() == positionObstacles.getX())
+                                PlanetMapImpl.obstaclePositions().remove(positionObstacles);
                             break;
                         case EAST:
                             if (marsroverposition.getX() + laserlength == positionObstacles.getX()
-                                    && marsroverposition.getY() + laserlength == positionObstacles.getY())
-                                PlanetMap.obstaclePositions().remove(positionObstacles);
+                                    && marsroverposition.getY() == positionObstacles.getY())
+                                PlanetMapImpl.obstaclePositions().remove(positionObstacles);
                             break;
                         case SOUTH:
-                            if (marsroverposition.getY() + laserlength == positionObstacles.getY()
-                                    && marsroverposition.getX() + laserlength == positionObstacles.getX())
-                                PlanetMap.obstaclePositions().remove(positionObstacles);
+                            if (marsroverposition.getY() - laserlength == positionObstacles.getY()
+                                    && marsroverposition.getX() == positionObstacles.getX())
+                                PlanetMapImpl.obstaclePositions().remove(positionObstacles);
                             break;
                         case WEST:
-                            if (marsroverposition.getX() + laserlength == positionObstacles.getX()
-                                    && marsroverposition.getY() + laserlength == positionObstacles.getY())
-                                PlanetMap.obstaclePositions().remove(positionObstacles);
+                            if (marsroverposition.getX() - laserlength == positionObstacles.getX()
+                                    && marsroverposition.getY() == positionObstacles.getY())
+                                PlanetMapImpl.obstaclePositions().remove(positionObstacles);
                             break;
                     }
     }
