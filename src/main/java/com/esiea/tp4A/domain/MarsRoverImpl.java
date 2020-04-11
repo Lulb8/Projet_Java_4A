@@ -2,8 +2,8 @@ package com.esiea.tp4A.domain;
 
 public class MarsRoverImpl implements MarsRover {
     private Position position;
-    PlanetMapImpl map;
-    boolean knownCommand = true;
+    private final PlanetMapImpl map;
+    private boolean knownCommand = true;
 
     public MarsRoverImpl(int x, int y, Direction direction, PlanetMapImpl map) {
         position = Position.of(x, y, direction);

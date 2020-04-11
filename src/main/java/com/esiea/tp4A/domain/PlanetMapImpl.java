@@ -7,13 +7,13 @@ public class PlanetMapImpl implements PlanetMap {
 
     private Set<Position> obstacles = new HashSet<Position>();
 
-    final int BORDER_NORTH = 50;
-    final int BORDER_SOUTH = -49;
-    final int BORDER_EAST = 50;
-    final int BORDER_WEST = -49;
+    private final int BORDER_NORTH = 50;
+    private final int BORDER_SOUTH = -49;
+    private final int BORDER_EAST = 50;
+    private final int BORDER_WEST = -49;
 
-    final int BORDER_NORTH_EAST = 50;
-    final int BORDER_SOUTH_WEST = -49;
+    private final int BORDER_NORTH_EAST = 50;
+    private final int BORDER_SOUTH_WEST = -49;
 
     public int north_east_border(int p) {
         if (p < BORDER_NORTH_EAST)
