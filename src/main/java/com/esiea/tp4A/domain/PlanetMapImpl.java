@@ -31,25 +31,20 @@ public class PlanetMapImpl implements PlanetMap {
         return p;
     }
 
-    public void generateObstacles(){
-        Position pos1 = Position.of(0, 1, Direction.NORTH);
-        Position pos2 = Position.of(2, 4, Direction.NORTH);
-        Position pos3 = Position.of(30, 16, Direction.NORTH);
-        obstacles.add(pos1);
-        obstacles.add(pos2);
-        obstacles.add(pos3);
-    }
-
     public boolean checkIfObstacle(int x, int y, Direction direction) {
         return obstacles.contains(new Position.FixedPosition(x, y, direction));
     }
 
-    @Override
-    public static Set<Position> obstaclePositions() {
-        return obstacles;
-    }
-
     public void addObstacle(int obsX, int obsY, Direction obsDirection) {
         obstacles.add(new Position.FixedPosition(obsX, obsY, obsDirection));
+    }
+
+    public void destroyObstacle(int x, int y) {
+        obstacles.removeIf(position -> position.getX() == x && position.getY() == y);
+    }
+
+    @Override
+    public Set<Position> obstaclePositions() {
+        return obstacles;
     }
 }
