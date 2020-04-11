@@ -13,6 +13,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 public class ObstacleTest {
 
     PlanetMapImpl map = new PlanetMapImpl();
+    int laserRange = 2;
 
     @ParameterizedTest
     @CsvSource({
@@ -34,7 +35,7 @@ public class ObstacleTest {
     })
     void rover_detect_obstacle(String command, int obsX, int obsY, Direction obsDirection, int expX, int expY, Direction expDirection) {
         map.addObstacle(obsX, obsY, obsDirection);
-        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, map);
+        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, map, laserRange);
         Position newPosition = marsRover.move(command);
         Assertions.assertThat(newPosition).isEqualTo(Position.of(expX, expY, expDirection));
     }

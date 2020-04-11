@@ -2,7 +2,7 @@ package com.esiea.tp4A.domain;
 
 public class Laser {
 
-    private final int range;
+    private int range;
     private final PlanetMapImpl map;
 
     public Laser(int range, PlanetMapImpl map) {
@@ -12,18 +12,10 @@ public class Laser {
 
     public void shootOnObstacle(int x, int y, Direction direction) {
         switch (direction) {
-            case NORTH:
-                shootNorth(x, y, direction);
-                break;
-            case SOUTH:
-                shootSouth(x, y, direction);
-                break;
-            case WEST:
-                shootWest(x, y, direction);
-                break;
-            case EAST:
-                shootEast(x, y, direction);
-                break;
+            case NORTH: shootNorth(x, y, direction); break;
+            case SOUTH: shootSouth(x, y, direction); break;
+            case WEST: shootWest(x, y, direction); break;
+            case EAST: shootEast(x, y, direction); break;
         }
     }
 
@@ -61,5 +53,9 @@ public class Laser {
                 break;
             }
         }
+    }
+
+    public void setRange(int range){
+        this.range = range;
     }
 }

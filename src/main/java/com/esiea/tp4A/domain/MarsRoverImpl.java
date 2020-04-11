@@ -6,10 +6,10 @@ public class MarsRoverImpl implements MarsRover {
     private boolean knownCommand = true;
     private Laser laser;
 
-    public MarsRoverImpl(int x, int y, Direction direction, PlanetMapImpl map) {
+    public MarsRoverImpl(int x, int y, Direction direction, PlanetMapImpl map, int range) {
         position = Position.of(x, y, direction);
         this.map = map;
-        this.laser = new Laser(2, map);
+        this.laser = new Laser(range, map);
     }
 
     @Override
@@ -62,5 +62,21 @@ public class MarsRoverImpl implements MarsRover {
 
     public void give_new_position(int x, int y, Direction direction) {
         position = Position.of(x, y, direction);
+    }
+
+    @Override
+    public MarsRover initialize(Position position) {
+        return null;
+    }
+
+    @Override
+    public MarsRover updateMap(PlanetMap map) {
+        return null;
+    }
+
+    @Override
+    public MarsRover configureLaserRange(int range) {
+        laser.setRange(range);
+        return this;
     }
 }
