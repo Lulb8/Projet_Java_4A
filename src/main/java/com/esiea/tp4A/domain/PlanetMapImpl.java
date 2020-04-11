@@ -5,6 +5,8 @@ import java.util.Set;
 
 public class PlanetMapImpl implements PlanetMap {
 
+    private Set<Position> obstacles = new HashSet<Position>();
+
     final int BORDER_NORTH = 50;
     final int BORDER_SOUTH = -49;
     final int BORDER_EAST = 50;
@@ -29,14 +31,25 @@ public class PlanetMapImpl implements PlanetMap {
         return p;
     }
 
-    public static Set<Position> obstaclePositions() {
+    public void generateObstacles(){
         Position pos1 = Position.of(0, 1, Direction.NORTH);
         Position pos2 = Position.of(2, 4, Direction.NORTH);
         Position pos3 = Position.of(30, 16, Direction.NORTH);
-        Set<Position> obstacles = new HashSet<Position>();
         obstacles.add(pos1);
         obstacles.add(pos2);
         obstacles.add(pos3);
+    }
+
+    public boolean checkIfObstacle(int x, int y, Direction direction) {
+        return obstacles.contains(new Position.FixedPosition(x, y, direction));
+    }
+
+    @Override
+    public Set<Position> obstaclePositions() {
         return obstacles;
+    }
+
+    public void addObstacle(int obsX, int obsY, Direction obsDirection) {
+        obstacles.add(new Position.FixedPosition(obsX, obsY, obsDirection));
     }
 }
