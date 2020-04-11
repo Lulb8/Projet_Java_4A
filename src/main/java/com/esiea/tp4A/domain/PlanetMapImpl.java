@@ -45,7 +45,7 @@ public class PlanetMapImpl implements PlanetMap {
     }
 
     @Override
-    public Set<Position> obstaclePositions() {
+    public static Set<Position> obstaclePositions() {
         return obstacles;
     }
 
