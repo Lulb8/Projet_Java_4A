@@ -5,7 +5,7 @@ import java.util.Set;
 
 public class PlanetMapImpl implements PlanetMap {
 
-    private Set<Position> obstacles = new HashSet<Position>();
+    private final Set<Position> obstacles = new HashSet<Position>();
 
     private final int BORDER_NORTH_EAST = 50;
     private final int BORDER_SOUTH_WEST = -49;
