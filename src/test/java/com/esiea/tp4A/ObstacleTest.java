@@ -23,9 +23,9 @@ public class ObstacleTest {
 
     @ParameterizedTest
     @CsvSource({
-        "'ff', 0, 2, NORTH, 0, 1, NORTH",
-        "'fflb', 0, 1, NORTH, 1, 0, WEST",
-        "'bb', 0, 2, NORTH, 0, -2, NORTH",
+        "'ff', 0, 2, 0, 1, NORTH",
+        "'fflb', 0, 1, 1, 0, WEST",
+        "'bb', 0, 2, 0, -2, NORTH",
     })
     void rover_detect_obstacle(String command, int obsX, int obsY, int expX, int expY, Direction expDirection) {
         map.addObstacle(obsX, obsY);
