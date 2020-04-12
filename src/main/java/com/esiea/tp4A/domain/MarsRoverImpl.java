@@ -44,7 +44,7 @@ public class MarsRoverImpl implements MarsRover {
             case EAST: x = map.north_east_border(x); break;
             case SOUTH: y = map.south_west_border(y); break;
             case WEST: x = map.south_west_border(x); break;
-        } if (!map.checkIfObstacle(x, y, direction)){
+        } if (!map.checkIfObstacle(x, y)){
             give_new_position(x, y, direction);
         }
     }
@@ -55,7 +55,7 @@ public class MarsRoverImpl implements MarsRover {
             case EAST: x = map.south_west_border(x); break;
             case SOUTH: y = map.north_east_border(y); break;
             case WEST: x = map.north_east_border(x); break;
-        } if (!map.checkIfObstacle(x, y, direction)){
+        } if (!map.checkIfObstacle(x, y)){
             give_new_position(x, y, direction);
         }
     }

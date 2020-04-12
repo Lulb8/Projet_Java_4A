@@ -1,11 +1,6 @@
 package com.esiea.tp4A;
 
-import com.esiea.tp4A.domain.Direction;
-import com.esiea.tp4A.domain.MarsRover;
-import com.esiea.tp4A.domain.MarsRoverImpl;
-import com.esiea.tp4A.domain.PlanetMapImpl;
-import com.esiea.tp4A.domain.Position;
-
+import com.esiea.tp4A.domain.*;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
@@ -17,14 +12,13 @@ public class ObstacleTest {
 
     @ParameterizedTest
     @CsvSource({
-        "0,0,0,0, NORTH, true",
-        "10,3,9,4, NORTH,false",
-        "0, 1, 0, 1, NORTH, true"
+        "0,0,0,0, true",
+        "10,3,9,4,false",
+        "0, 1, 0, 1, true"
     })
-    void creating_and_new_detect_obstacles(int obsX, int obsY, int resX, int resY, Direction direction, boolean expectedRes) {
-        //map.generateObstacles();
+    void creating_and_new_detect_obstacles(int obsX, int obsY, int resX, int resY, boolean expectedRes) {
         map.obstaclePositions().add(new Position.FixedPosition(obsX, obsY, Direction.NORTH));
-        Assertions.assertThat(map.checkIfObstacle(resX, resY, direction)).isEqualTo(expectedRes);
+        Assertions.assertThat(map.checkIfObstacle(resX, resY)).isEqualTo(expectedRes);
     }
 
     @ParameterizedTest
@@ -33,8 +27,8 @@ public class ObstacleTest {
         "'fflb', 0, 1, NORTH, 1, 0, WEST",
         "'bb', 0, 2, NORTH, 0, -2, NORTH",
     })
-    void rover_detect_obstacle(String command, int obsX, int obsY, Direction obsDirection, int expX, int expY, Direction expDirection) {
-        map.addObstacle(obsX, obsY, obsDirection);
+    void rover_detect_obstacle(String command, int obsX, int obsY, int expX, int expY, Direction expDirection) {
+        map.addObstacle(obsX, obsY);
         MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, map, laserRange);
         Position newPosition = marsRover.move(command);
         Assertions.assertThat(newPosition).isEqualTo(Position.of(expX, expY, expDirection));

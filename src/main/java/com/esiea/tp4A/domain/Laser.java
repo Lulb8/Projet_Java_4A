@@ -12,43 +12,43 @@ public class Laser {
 
     public void shootOnObstacle(int x, int y, Direction direction) {
         switch (direction) {
-            case NORTH: shootNorth(x, y, direction); break;
-            case SOUTH: shootSouth(x, y, direction); break;
-            case WEST: shootWest(x, y, direction); break;
-            case EAST: shootEast(x, y, direction); break;
+            case NORTH: shootNorth(x, y); break;
+            case SOUTH: shootSouth(x, y); break;
+            case WEST: shootWest(x, y); break;
+            case EAST: shootEast(x, y); break;
         }
     }
 
-    public void shootNorth(int x, int y, Direction direction) {
+    public void shootNorth(int x, int y) {
         for (int i = 1; i <= range; i++) {
-            if (map.checkIfObstacle(x, y + i, direction)) {
+            if (map.checkIfObstacle(x, y + i)) {
                 map.destroyObstacle(x, y + i);
                 break;
             }
         }
     }
 
-    public void shootSouth(int x, int y, Direction direction) {
+    public void shootSouth(int x, int y) {
         for (int i = 1; i <= range; i++) {
-            if (map.checkIfObstacle(x, y - i, direction)) {
+            if (map.checkIfObstacle(x, y - i)) {
                 map.destroyObstacle(x, y - i);
                 break;
             }
         }
     }
 
-    public void shootWest(int x, int y, Direction direction) {
+    public void shootWest(int x, int y) {
         for (int i = 1; i <= range; i++) {
-            if (map.checkIfObstacle(x - i, y, direction)) {
+            if (map.checkIfObstacle(x - i, y)) {
                 map.destroyObstacle(x - i, y);
                 break;
             }
         }
     }
 
-    public void shootEast(int x, int y, Direction direction) {
+    public void shootEast(int x, int y) {
         for (int i = 1; i <= range; i++) {
-            if (map.checkIfObstacle(x + i, y, direction)) {
+            if (map.checkIfObstacle(x + i, y)) {
                 map.destroyObstacle(x + i, y);
                 break;
             }

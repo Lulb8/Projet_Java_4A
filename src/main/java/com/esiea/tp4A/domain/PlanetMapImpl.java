@@ -7,11 +7,6 @@ public class PlanetMapImpl implements PlanetMap {
 
     private Set<Position> obstacles = new HashSet<Position>();
 
-    private final int BORDER_NORTH = 50;
-    private final int BORDER_SOUTH = -49;
-    private final int BORDER_EAST = 50;
-    private final int BORDER_WEST = -49;
-
     private final int BORDER_NORTH_EAST = 50;
     private final int BORDER_SOUTH_WEST = -49;
 
@@ -31,16 +26,17 @@ public class PlanetMapImpl implements PlanetMap {
         return p;
     }
 
-    public boolean checkIfObstacle(int x, int y, Direction direction) {
-        return obstacles.contains(new Position.FixedPosition(x, y, direction));
+    public boolean checkIfObstacle(int x, int y) {
+        return obstacles.stream().anyMatch(position -> position.getX() == x && position.getY() == y);
     }
 
-    public void addObstacle(int obsX, int obsY, Direction obsDirection) {
-        obstacles.add(new Position.FixedPosition(obsX, obsY, obsDirection));
+    public void addObstacle(int obsX, int obsY) {
+        Obstacle newObstacle = new Obstacle(obsX, obsY);
+        obstacles.add(newObstacle);
     }
 
     public void destroyObstacle(int x, int y) {
-        obstacles.removeIf(position -> position.getX() == x && position.getY() == y);
+        obstacles.removeIf(obstacle -> obstacle.getX() == x && obstacle.getY() == y);
     }
 
     @Override
