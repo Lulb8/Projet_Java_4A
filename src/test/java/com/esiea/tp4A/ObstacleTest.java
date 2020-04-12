@@ -26,6 +26,8 @@ public class ObstacleTest {
         "'ff', 0, 2, 0, 1, NORTH",
         "'fflb', 0, 1, 1, 0, WEST",
         "'bb', 0, 2, 0, -2, NORTH",
+        "'', 0, 0, 0, 0, NORTH",
+        "'fb', 0, 0, 0, 1, NORTH"
     })
     void rover_detect_obstacle(String command, int obsX, int obsY, int expX, int expY, Direction expDirection) {
         map.addObstacle(obsX, obsY);

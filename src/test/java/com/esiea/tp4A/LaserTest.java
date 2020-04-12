@@ -17,7 +17,9 @@ public class LaserTest {
         "'rrfsf', 0, -2, 0, -2, SOUTH",
         "'rrsff', 0, -2, 0, -2, SOUTH",
         "'rfsff', 3, 0, 3, 0, EAST",
-        "'lbfsff', -2, 0, -2, 0, WEST"
+        "'lbfsff', -2, 0, -2, 0, WEST",
+        "'fsffb', 0, 2, 0, 2, NORTH",
+        "'sfff', 0, 3, 0, 2, NORTH"
     })
     void rover_destroy_obstacle(String command, int obsX, int obsY, int expX, int expY, Direction expDirection) {
         map.addObstacle(obsX, obsY);
