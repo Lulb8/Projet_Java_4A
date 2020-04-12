@@ -108,4 +108,21 @@ public class MarsRoverTest {
         Position newPosition = marsRover.move(command);
         Assertions.assertThat(newPosition).isEqualTo(Position.of(expectedX, expectedY, expectedDirection));
     }
+
+    @ParameterizedTest
+    @CsvSource({
+        "'f', 0, 1, NORTH",
+        "'b', 0, -1, NORTH",
+        "'l', 0, 0, WEST",
+        "'r', 0, 0, EAST",
+        "'ll', 0, 0, SOUTH",
+        "'bb', 0, -2, NORTH",
+        "'lf', -1, 0, WEST",
+        "'rf', 1, 0, EAST"
+    })
+    void print_position(String command, int expX, int expY, Direction expDirection) {
+        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, map, laserRange);
+        Position newPosition = marsRover.move(command);
+        Assertions.assertThat(newPosition.toString()).isEqualTo("FixedPosition{x=" + expX + ", y=" + expY + ", direction=" + expDirection + "}");
+    }
 }
