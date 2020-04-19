@@ -2,12 +2,13 @@ package com.esiea.tp4A;
 
 import com.esiea.tp4A.domain.*;
 import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.CsvSource;
 
 public class ObstacleTest {
 
-    PlanetMapImpl map = new PlanetMapImpl();
+    PlanetMapImpl map = new PlanetMapImpl(100, 0);
     int laserRange = 2;
 
     @ParameterizedTest
@@ -30,8 +31,8 @@ public class ObstacleTest {
         "'fb', 0, 0, 0, 1, NORTH"
     })
     void rover_detect_obstacle(String command, int obsX, int obsY, int expX, int expY, Direction expDirection) {
-        map.addObstacle(obsX, obsY);
-        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, map, laserRange);
+        map.addOneObstacle(obsX, obsY);
+        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, map);
         Position newPosition = marsRover.move(command);
         Assertions.assertThat(newPosition).isEqualTo(Position.of(expX, expY, expDirection));
     }

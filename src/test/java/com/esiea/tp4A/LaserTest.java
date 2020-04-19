@@ -7,7 +7,7 @@ import org.junit.jupiter.params.provider.CsvSource;
 
 public class LaserTest {
 
-    PlanetMapImpl map = new PlanetMapImpl();
+    PlanetMapImpl map = new PlanetMapImpl(100, 0);
     int laserRange = 2;
 
     @ParameterizedTest
@@ -22,8 +22,9 @@ public class LaserTest {
         "'sfff', 0, 3, 0, 2, NORTH"
     })
     void rover_destroy_obstacle(String command, int obsX, int obsY, int expX, int expY, Direction expDirection) {
-        map.addObstacle(obsX, obsY);
-        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, map, laserRange);
+        map.addOneObstacle(obsX, obsY);
+        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, map);
+        marsRover.configureLaserRange(laserRange);
         Position newPosition = marsRover.move(command);
         Assertions.assertThat(newPosition).isEqualTo(Position.of(expX, expY, expDirection));
     }
@@ -45,8 +46,9 @@ public class LaserTest {
         "'bbrfsff', 3, -2, 3, -2, EAST, 3"
     })
     void rover_destroy_obstacle_with_different_laser_range(String command, int obsX, int obsY, int expX, int expY, Direction expDirection, int laserRange) {
-        map.addObstacle(obsX, obsY);
-        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, map, laserRange);
+        map.addOneObstacle(obsX, obsY);
+        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, map);
+        marsRover.configureLaserRange(laserRange);
         Position newPosition = marsRover.move(command);
         Assertions.assertThat(newPosition).isEqualTo(Position.of(expX, expY, expDirection));
     }
@@ -65,10 +67,10 @@ public class LaserTest {
         "'ls', -49, 0, 50"
     })
     void check_laser_range(String command, int obsX, int obsY, int laserRange) {
-        map.addObstacle(obsX, obsY);
-        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, map, laserRange);
+        map.addOneObstacle(obsX, obsY);
+        MarsRover marsRover = new MarsRoverImpl(0, 0, Direction.NORTH, map);
+        marsRover.configureLaserRange(laserRange);
         marsRover.move(command);
         Assertions.assertThat(map.obstaclePositions()).isEmpty();
     }
 }
-
